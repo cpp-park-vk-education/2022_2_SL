@@ -22,22 +22,22 @@ TST_SRCS = \
 
 all: clean check build test memtest testextra memtestextra
 
-check:
-	./linters/run.sh
+# check:
+# 	./linters/run.sh
 
 build: $(TARGET)
 
 test: $(TST_TARGET)
 	$(TST_TARGET)
 
-memtest: $(TST_TARGET)
-	./project/tests/memtest.sh ${TST_TARGET}
+# memtest: $(TST_TARGET)
+# 	./project/tests/memtest.sh ${TST_TARGET}
 
 testextra: $(TST_TARGET)
 	$(TST_TARGET) --with-extra
 
-memtestextra: $(TST_TARGET)
-	./project/tests/memtest.sh ${TST_TARGET} --with-extra
+# memtestextra: $(TST_TARGET)
+# 	./project/tests/memtest.sh ${TST_TARGET} --with-extra
 
 rebuild: clean build
 

@@ -9,3 +9,4 @@ services:
     ports:
       - "8000:8000"
     working_dir: /code
+    command: ./main.out

@@ -2,10 +2,13 @@ FROM leshiy1295/gcc_linters_valgrind_cmake_gtest
 
 WORKDIR /code/
 
-ADD ./src ./
+COPY src ./src
 
-ADD Makefile ./
+COPY test ./test
 
-WORKDIR /build
+COPY include ./include
 
-RUN make ../
+COPY Makefile .
+
+RUN make
+
