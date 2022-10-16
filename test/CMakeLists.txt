@@ -9,6 +9,7 @@ add_executable(${PROJECT_NAME}_unittest
 
 target_link_libraries(${PROJECT_NAME}_unittest
   GTest::gtest_main
+  ${PROJECT_NAME}_objs
 )
 
 include(GoogleTest)
