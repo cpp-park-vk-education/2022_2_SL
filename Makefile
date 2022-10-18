@@ -16,8 +16,13 @@ TST_SRCS = \
 
 .PHONY: all build test rebuild clean
 
-all: clean build test 
+all: clean format build test 
 
+lint:
+	clang-tidy $(SRCS) $(HDRS) -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
+
+format:
+	clang-format -style=google -i $(SRCS) $(HDRS)*.hpp
 
 build: $(TARGET)
 
