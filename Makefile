@@ -27,6 +27,7 @@ build-debug:
 build-release:
 	@cmake -B build_release -DCMAKE_BUILD_TYPE=Release $(CMAKE_RELEASE_FLAGS)
 
+
 test-debug: build-debug
 	@cd build_debug && make
 	@./build_debug/test/${UNITTESTS_NAME}
