@@ -27,7 +27,7 @@ jobs:
     - name: Install clang-format
       working-directory: ${{github.workspace}} 
       shell: bash          
-      run: sudo apt install clang-tidy
+      run: sudo apt install clang-format
  
     - name: Build and test 
       working-directory: ${{github.workspace}} 
