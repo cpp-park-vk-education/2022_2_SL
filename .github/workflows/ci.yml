@@ -44,8 +44,10 @@ jobs:
       working-directory: ${{github.workspace}}/build 
       run: | 
         lcov -t "tests" -o coverage.info -c -d . 
-        lcov --remove coverage.info -o coverage.info '/usr/include/*' 
+        lcov --remove coverage.info -o coverage.info 'include/*' 
         genhtml -o report coverage.info 
         ls -la
 
     - uses: actions/upload-artifact@v3
+      with:
+        path: coverage.info
