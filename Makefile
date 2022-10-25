@@ -25,7 +25,8 @@ build-debug:
 	@cmake -B build_debug -DCMAKE_BUILD_TYPE=Debug $(CMAKE_DEBUG_FLAGS)
 
 build-release:
-	@cmake -B build_release -O2 -DCMAKE_BUILD_TYPE=Release $(CMAKE_RELEASE_FLAGS)
+	@cmake -B build_release -DCMAKE_BUILD_TYPE=Release $(CMAKE_RELEASE_FLAGS)
+
 
 test-debug: build-debug
 	@cd build_debug && make
