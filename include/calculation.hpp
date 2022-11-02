@@ -5,6 +5,7 @@
 
 #include <iostream>
 
-int calculation(double argument_one, double argument_two, char sign, bool correct);
+int calculation(double argument_one, double argument_two, char sign,
+                bool correct);
 
 #endif  // CALCULATION_H_
