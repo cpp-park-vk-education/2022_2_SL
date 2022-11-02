@@ -49,3 +49,6 @@ _deps
 *.exe
 *.out
 *.app
+
+# VS Code
+.vscode
