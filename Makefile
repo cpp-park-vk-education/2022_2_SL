@@ -1,18 +1,6 @@
-CMAKE_DEBUG_FLAGS ?= -DUSERVER_SANITIZE='addr ub'
+CMAKE_DEBUG_FLAGS ?= 
 CMAKE_RELEASE_FLAGS ?=
 
-HDRS = \
-	   ./include/
-SRCS = \
-	   ./src/main.cpp \
-	   ./src/calculation.cpp
-	   
-TST_HDRS = \
-           ./include/
-
-TST_SRCS = \
-           ./src/calculation.cpp \
-		   ./test/test.cpp
 
 PROJECT_NAME = SourceTil
 UNITTESTS_NAME = SourceTil_unittest
@@ -46,10 +34,10 @@ clean-impl-%:
 	cd build_$* && make clean
 
 lint:
-	clang-tidy $(SRCS) $(HDRS) -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
+	clang-tidy *.cpp *.hpp -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
 
 format:
-	clang-format -style=google -i $(SRCS) $(HDRS)*.hpp
+	clang-format -style=google -i *.cpp *.hpp
 
 clean-dist:
 	@rm -rf build_*
