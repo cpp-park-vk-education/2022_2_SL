@@ -3,6 +3,11 @@ project(SourceTil CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(GCC_COVERAGE_LINK_FLAGS "-coverage -lgcov")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fprofile-arcs -ftest-coverage -fPIC -O0")
+set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+
+
 include(GNUInstallDirs)
 include_directories(include)
 
@@ -19,23 +24,16 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs )
 # Tests include sector
 include(FetchContent)
 FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG release-1.12.1
+	googletest
+	GIT_REPOSITORY https://github.com/google/googletest.git
+	GIT_TAG release-1.12.1
 )
-# For Windows: Prevent overriding the parent project's compiler/linker settings
+# For Win: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Unit Tests
 add_subdirectory(test)
-
-
-# Benchmarks
-# not yet added
-
-# Functional Tests
-# not yet added
 
 if(DEFINED ENV{PREFIX})
 	message(STATUS "Set install prefix: $ENV{PREFIX}")
@@ -44,5 +42,14 @@ if(DEFINED ENV{PREFIX})
 endif()
 
 
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${PROJECT_NAME})
-install(FILES ${CONFIGS_FILES} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} COMPONENT ${PROJECT_NAME})
+install(
+	TARGETS ${PROJECT_NAME}
+	DESTINATION ${CMAKE_INSTALL_BINDIR} 
+	COMPONENT ${PROJECT_NAME}
+)
+
+install(
+	FILES ${CONFIGS_FILES} 
+	DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} 
+	COMPONENT ${PROJECT_NAME}
+)
