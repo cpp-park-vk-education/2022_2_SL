@@ -1,6 +1,9 @@
 CMAKE_DEBUG_FLAGS ?= 
 CMAKE_RELEASE_FLAGS ?=
 
+HEADER_DIR = ./include/
+SOURCE_DIR = ./src/
+
 
 PROJECT_NAME = SourceTil
 UNITTESTS_NAME = SourceTil_unittest
@@ -34,10 +37,10 @@ clean-impl-%:
 	cd build_$* && make clean
 
 lint:
-	clang-tidy *.cpp *.hpp -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
+	clang-tidy $(HEADER_DIR) $(SOURCE_DIR) -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
 
 format:
-	clang-format -style=google -i *.cpp *.hpp
+	clang-format -style=google -i $(HEADER_DIR) $(SOURCE_DIR)
 
 clean-dist:
 	@rm -rf build_*
