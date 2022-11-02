@@ -37,10 +37,10 @@ clean-impl-%:
 	cd build_$* && make clean
 
 lint:
-	clang-tidy $(HEADER_DIR)* $(SOURCE_DIR)* --config -- -std=c++17 -I$(HEADER_DIR)
+	clang-tidy $(HEADER_DIR)* $(SOURCE_DIR)* --config= -- -std=c++17 -I$(HEADER_DIR)
 
 format:
-	clang-format --config -i $(HEADER_DIR)* $(SOURCE_DIR)*
+	clang-format --config= -i $(HEADER_DIR)* $(SOURCE_DIR)*
 
 clean-dist:
 	@rm -rf build_*
