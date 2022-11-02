@@ -50,5 +50,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Coverage
-        path: build_debug/report/index.html
+        path: build_debug/report/*
  
