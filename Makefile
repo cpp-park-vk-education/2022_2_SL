@@ -37,10 +37,10 @@ clean-impl-%:
 	cd build_$* && make clean
 
 lint:
-	clang-tidy $(HEADER_DIR)* $(SOURCE_DIR)* -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HEADER_DIR)
+	clang-tidy $(HEADER_DIR)* $(SOURCE_DIR)* -style=file -checks=-* -- -std=c++17 -I$(HEADER_DIR)
 
 format:
-	clang-format -style=google -i $(HEADER_DIR)* $(SOURCE_DIR)*
+	clang-format -style=file -i $(HEADER_DIR)* $(SOURCE_DIR)*
 
 clean-dist:
 	@rm -rf build_*
