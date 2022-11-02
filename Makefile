@@ -37,7 +37,7 @@ clean-impl-%:
 	cd build_$* && make clean
 
 lint:
-	clang-tidy $(HEADER_DIR)* $(SOURCE_DIR)* -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
+	clang-tidy $(HEADER_DIR)*.hpp $(SOURCE_DIR)*.cpp -format-style='{BasedOnStyle: google}' -checks='-*,readability-*,modernize-*,-modernize-use-trailing-return-type,performance-*,cppcoreguidelines-*,clang-analyzer-*,bugprone-*,misc-*,-bugprone-easily-swappable-parameters' -- -std=c++17 -I$(HDRS)
 
 format:
 	clang-format -style=google -i $(HEADER_DIR)* $(SOURCE_DIR)*
