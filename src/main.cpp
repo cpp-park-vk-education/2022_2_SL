@@ -3,9 +3,9 @@
 #include "calculation.hpp"
 
 int main() {
-  double argument_one;
-  double argument_two;
-  char sign;
+  double argument_one = 0;
+  double argument_two = 0;
+  char sign = 0;
   std::cout << "Enter the expression: ";
   std::cin >> argument_one >> sign >> argument_two;
   std::cout << std::endl;

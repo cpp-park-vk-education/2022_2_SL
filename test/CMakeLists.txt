@@ -14,3 +14,4 @@ target_link_libraries(${PROJECT_NAME}_unittest
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_unittest)
+
