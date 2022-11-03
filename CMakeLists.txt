@@ -13,7 +13,7 @@ include_directories(include)
 
 # Common sources
 add_library(${PROJECT_NAME}_objs OBJECT
-    src/calculation.cpp
+	src/calculation.cpp
 	include/calculation.hpp
 )
 
@@ -53,4 +53,3 @@ install(
 	DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} 
 	COMPONENT ${PROJECT_NAME}
 )
-
