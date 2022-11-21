@@ -1,6 +1,6 @@
 #include <string>
 
-#include "Message.cpp"
+#include "Message.hpp"
 
 using nlohmann::json;
 
