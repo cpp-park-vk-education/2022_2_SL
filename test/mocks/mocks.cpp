@@ -1,4 +1,5 @@
 #include <string>
+#include <nlohmann/json.hpp>
 
 #include "Message.hpp"
 
