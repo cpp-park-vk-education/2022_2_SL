@@ -13,7 +13,8 @@ class AbstractMessage {
     std::string format;
 
     public:
-
+    AbstractMessage() = default;
+    ~AbstractMessage() = default;
     virtual std::string get_format();
     virtual std::string get_receiver();
     virtual bool set_body(json element);
@@ -28,7 +29,8 @@ class LogMessage : public AbstractMessage {
     json body;
 
     public:
-
+    LogMessage() = default;
+    ~LogMessage() = default;
     bool set_body(json element) override;
     json get_body() override;
 };
