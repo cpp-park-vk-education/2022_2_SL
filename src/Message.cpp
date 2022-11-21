@@ -2,7 +2,7 @@
 
 #include "Message.cpp"
 
-using nlohmann::json;
+using json = nlohmann::json;
 
 class AbstractMessage {
     
