@@ -1,4 +1,4 @@
-#include <iostream>
+#include <string>
 
 // виртуальный класс сообщения
 class VirtualMessage {

@@ -2,9 +2,10 @@
 #include <vector>
 #include "component.h"
 #include "serializer.h"
-#include <boost>
+#include "socket.h"
+// #include <boost>
 
-using boost::asio::ip::tcp::socket socket;
+// using boost::asio::ip::tcp::socket socket;
 
 // класс отправителя логов
 class LogCollector : public IComponent {
@@ -14,11 +15,11 @@ class LogCollector : public IComponent {
     void set_serializer(Serializer serializer) {
         serializer_ = serializer;
     }
-    void set_socket(socket socket) {
+    void set_socket(Socket socket) {
         socket_ = socket;
     }
 private:
     Serializer serializer_;
     std::string kName;
-    socket socket_;
+    Socket socket_;
 };

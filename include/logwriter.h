@@ -1,9 +1,10 @@
 #include <iostream>
 #include "component.h"
 #include "serializer.h"
-#include <clickhouse/client.h>
+#include "client.h"
+// #include <clickhouse/client.h>
 
-using clickhouse::client client;
+// using clickhouse::client client;
 
 class LogWriter : public IComponent {
     public:
@@ -15,5 +16,5 @@ class LogWriter : public IComponent {
     private:
         Serializer serializer_;
         std::string kName;
-        client db;
+        Client db;
 };

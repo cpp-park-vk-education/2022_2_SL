@@ -5,6 +5,7 @@ enable_testing()
 
 add_executable(${PROJECT_NAME}_unittest
     test.cpp
+    mocks/mocks.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}_unittest

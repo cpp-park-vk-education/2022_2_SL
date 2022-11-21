@@ -15,6 +15,11 @@ include_directories(include)
 add_library(${PROJECT_NAME}_objs OBJECT
 	src/calculation.cpp
 	include/calculation.hpp
+	include/component.h
+	include/logacceptor.h
+	include/logsender.h
+	include/logwriter.h
+	include/serializer.h
 )
 
 # The Service

@@ -2,7 +2,8 @@
 #include <vector>
 #include "component.h"
 #include "serializer.h"
-#include <libsensors/sensor.h>
+#include "sensor.h"
+// #include <libsensors/sensor.h>
 
 // класс собирателя логов
 class LogCollector : public IComponent {
@@ -12,7 +13,7 @@ class LogCollector : public IComponent {
     void set_serializer(Serializer serializer) {
         serializer_ = serializer;
     }
-    void set_sensors(vector<Sensor> sensors) {
+    void set_sensors(vector<Sensor> Sensors) {
         sensors_ = sensors;
     }
 private:
