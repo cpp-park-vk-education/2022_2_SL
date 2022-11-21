@@ -15,8 +15,9 @@ class AbstractMessage {
     public:
 
     virtual std::string get_format();
-
     virtual std::string get_receiver();
+    virtual bool set_body(json element);
+    virtual json get_body();
 
 };
 
@@ -28,8 +29,8 @@ class LogMessage : public AbstractMessage {
 
     public:
 
-    bool set_body(json element);
-    json get_body();
+    bool set_body(json element) override;
+    json get_body() override;
 };
 
 template<class T>
@@ -37,16 +38,16 @@ class ISerializer {
 
     public:
 
-    T serialize(AbstractMessage element);
+    virtual T serialize(LogMessage element);
 
-    AbstractMessage deserialize(T element);
+    virtual AbstractMessage deserialize(T element);
 };
 
 class Serializer_json :  public ISerializer<json> {
     
     public:
 
-    json serialize(AbstractMessage element);
+    json serialize(LogMessage element) override;
 
-    AbstractMessage deserialize(json element);
+    AbstractMessage deserialize(json element) override;
 };
