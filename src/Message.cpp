@@ -23,7 +23,7 @@ class AbstractMessage {
 
 }
 
-class LogMessege : public AbstractMessage {
+class LogMessage : public AbstractMessage {
     
     private:
 
@@ -51,7 +51,7 @@ class ISerializer {
     T serialize(AbstractMessage element) {
     };
 
-    AbstractMessege deserialize(T element) {
+    AbstractMessage deserialize(T element) {
     };
 };
 
@@ -63,7 +63,7 @@ class Serializer : public ISerializer {
     T serialize(AbstractMessage element) {
     };
 
-    AbstractMessege deserialize(T element) {
+    AbstractMessage deserialize(T element) {
     };
 };
 
@@ -79,7 +79,7 @@ class Serializer_json :  public Serializer {
         return "Unsuccess";
     };
 
-    AbstractMessege deserialize(json element) {
+    AbstractMessage deserialize(json element) {
         AbstractMessage rt;
         rt.get_body(element);
         return rt;
