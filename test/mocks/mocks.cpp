@@ -12,6 +12,6 @@ class MocksSerializer_json : public Serializer {
 
 TEST(Serializer, set_body) {
   MockIdleManager mock;
-  EXPECT_CALL(mock, takeSleepTime()).Times(1);
-  mock.takeSleepTime();
+  EXPECT_CALL(mock, set_body()).Times(1);
+  mock.set_body();
 };
