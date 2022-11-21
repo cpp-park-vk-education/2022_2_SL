@@ -1,6 +1,6 @@
 #include <iostream>
 
-using nlohmann::json;
+using json = nlohmann::json;
 
 class AbstractMessage {
     
@@ -15,9 +15,9 @@ class AbstractMessage {
 
     virtual std::string get_receiver();
 
-}
+};
 
-class LogMessege : public AbstractMessage {
+class LogMessage : public AbstractMessage {
     
     private:
 
@@ -27,7 +27,7 @@ class LogMessege : public AbstractMessage {
 
     bool set_body(json element);
     json get_body();
-}
+};
 
 template<class T>
 class ISerializer {
@@ -36,7 +36,7 @@ class ISerializer {
 
     T serialize(AbstractMessage element);
 
-    AbstractMessege deserialize(T element);
+    AbstractMessage deserialize(T element);
 };
 
 template<class T>
@@ -46,7 +46,7 @@ class Serializer : public ISerializer {
 
     T serialize(AbstractMessage element);
 
-    AbstractMessege deserialize(T element);
+    AbstractMessage deserialize(T element);
 };
 
 class Serializer_json :  public Serializer {
@@ -55,5 +55,5 @@ class Serializer_json :  public Serializer {
 
     json serialize(AbstractMessage element);
 
-    AbstractMessege deserialize(json element);
-}
+    AbstractMessage deserialize(json element);
+};

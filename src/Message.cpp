@@ -21,7 +21,7 @@ class AbstractMessage {
         return 2;
     }
 
-}
+};
 
 class LogMessage : public AbstractMessage {
     
@@ -41,7 +41,7 @@ class LogMessage : public AbstractMessage {
     json get_body() {
         return 2;
     }
-}
+};
 
 template<class T>
 class ISerializer {
@@ -84,4 +84,4 @@ class Serializer_json :  public Serializer {
         rt.get_body(element);
         return rt;
     };
-}
+};

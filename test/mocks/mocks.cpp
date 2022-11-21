@@ -13,4 +13,4 @@ TEST(Serializer, set_body) {
   MockIdleManager mock;
   EXPECT_CALL(mock, takeSleepTime()).Times(1);
   mock.takeSleepTime();
-}
+};
