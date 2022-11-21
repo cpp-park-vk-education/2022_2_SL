@@ -5,7 +5,6 @@ enable_testing()
 
 add_executable(${PROJECT_NAME}_unittest
     test.cpp
-    mocks/mocks.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}_unittest
@@ -15,4 +14,3 @@ target_link_libraries(${PROJECT_NAME}_unittest
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_unittest)
-

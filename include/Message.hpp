@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <nlohmann/json.hpp>
 
@@ -40,17 +42,7 @@ class ISerializer {
     AbstractMessage deserialize(T element);
 };
 
-template<class T>
-class Serializer : public ISerializer {
-
-    public:
-
-    T serialize(AbstractMessage element);
-
-    AbstractMessage deserialize(T element);
-};
-
-class Serializer_json :  public Serializer {
+class Serializer_json :  public ISerializer<json> {
     
     public:
 
