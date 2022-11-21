@@ -1,0 +1,54 @@
+name: CI
+ 
+on: 
+  [push, pull_request] 
+ 
+env:
+  BUILD_TYPE: Debug 
+ 
+jobs: 
+  build: 
+    runs-on: ubuntu-latest 
+ 
+    steps: 
+    - name: Checkout repository
+      uses: actions/checkout@v3 
+
+    - name: Install clang-tidy
+      working-directory: ${{github.workspace}}       
+      run: sudo apt install -y clang-tidy
+
+    - name: Install clang-format
+      working-directory: ${{github.workspace}}        
+      run: sudo apt install -y clang-format
+ 
+    - name: Build
+      working-directory: ${{github.workspace}} 
+      run: make build-debug
+
+    - name: Test
+      working-directory: ${{github.workspace}} 
+      run: make test-debug
+    
+    - name: Lint 
+      working-directory: ${{github.workspace}} 
+      run: make lint
+ 
+    - name: Install lcov         
+      run: |          
+          sudo apt-get install -y lcov
+          
+    - name: Run coverage analyse
+      run: |
+          cd build_debug && lcov -t "SourceTil" -o coverage.info -c -d ./
+
+    - name: Get coverage page
+      run: |
+          cd build_debug && genhtml -o report coverage.info
+ 
+    - name: Load coverage result
+      uses: actions/upload-artifact@v3
+      with:
+        name: Coverage
+        path: build_debug/report/*
+ 
