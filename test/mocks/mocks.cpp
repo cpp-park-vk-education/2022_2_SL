@@ -4,7 +4,8 @@
 #include "gmock/gmock.h"
 #include <iostream>
 
-#include "Message.hpp"
+#include "message.h"
+#include "serialize.h"
 
 class MocksSerializer_json : public ISerializer<json>{
   
