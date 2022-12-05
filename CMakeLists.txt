@@ -15,8 +15,10 @@ include_directories(include)
 add_library(${PROJECT_NAME}_objs OBJECT
 	src/calculation.cpp
 	include/calculation.hpp
-	include/Message.hpp
-	src/Message.cpp
+	include/message.h
+	include/serialize.h
+	src/message.cpp
+	src/serialize.cpp
 )
 
 # The Service

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 
+#include "message.h"
+
 using json = nlohmann::json;
 
 
@@ -11,29 +13,25 @@ class ISerializer {
 
     public:
 
-    ISerializer() = default;
+    virtual T serialize(AbstractMessage &element);
 
-    virtual ~ISerializer() = default;
-
-    virtual T serialize(AbstractMessage element) = 0;
-
-    virtual AbstractMessage deserialize(T element) = 0;
+    virtual void deserialize(T element, AbstractMessage &message);
 };
 
 class Serializer_json :  public ISerializer<json> {
     
     public:
 
-    json serialize(AbstractMessage element) override;
+    json serialize(AbstractMessage &element) override;
 
-    AbstractMessage deserialize(json element) override;
+    void deserialize(json element, AbstractMessage &message) override;
 };
 
 class Serializer_str :  public ISerializer<std::string> {
     
     public:
 
-    std::string serialize(AbstractMessage element) override;
+    std::string serialize(AbstractMessage &element) override;
 
-    AbstractMessage deserialize(std::string element) override;
+    void deserialize(std::string element, AbstractMessage &message) override;
 };
