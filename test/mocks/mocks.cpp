@@ -4,18 +4,28 @@
 #include "gmock/gmock.h"
 #include <iostream>
 
-#include "Message.hpp"
+#include "serialize.h"
 
-class MocksSerializer_json : public ISerializer<json>{
+class MocksMessage : public AbstractMessage {
   
  public:
-  MOCK_METHOD1(serialize, json(int));
+  MOCK_METHOD(bool, set_body, (json element), (override));
+  MOCK_METHOD(json, get_body, (), (override));
 };
 
 TEST(Serializer, get_body) {
-  MocksSerializer_json mock_serialize;
-  EXPECT_CALL(mock_serialize, serialize(1)).Times(1);
-  mock_serialize.serialize(1);
+  MocksMessage mock_message;
+  Serializer_json myapp_mock;
+  EXPECT_CALL(mock_message, get_body()).Times(1);
+  myapp_mock.serialize(mock_message);
+};
+
+TEST(Deserializer, set_body) {
+  MocksMessage mock_message;
+  Serializer_json myapp_mock;
+  json element;
+  EXPECT_CALL(mock_message, set_body(element)).Times(1);
+  myapp_mock.deserialize(element,mock_message);
 };
 
 int main(int argc, char** argv) {

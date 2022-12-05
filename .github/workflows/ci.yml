@@ -14,10 +14,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3 
 
-    - name: Install clang-tidy
-      working-directory: ${{github.workspace}}       
-      run: sudo apt install -y clang-tidy
-
     - name: Install nlohmann-json
       working-directory: ${{github.workspace}}        
       run: sudo apt install -y nlohmann-json3-dev
@@ -25,10 +21,6 @@ jobs:
     - name: Install gmoke
       working-directory: ${{github.workspace}}     
       run: sudo apt-get install google-mock
-
-    - name: Install clang-format
-      working-directory: ${{github.workspace}}        
-      run: sudo apt install -y clang-format
  
     - name: Build
       working-directory: ${{github.workspace}} 
@@ -37,10 +29,6 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}} 
       run: make test-debug
-    
-    - name: Lint 
-      working-directory: ${{github.workspace}} 
-      run: make lint
  
     - name: Install lcov         
       run: |          
