@@ -4,11 +4,9 @@
 #include <boost/asio.hpp>
 #include <thread>
 #include <nlohmann/json.hpp>
-#include <clickhouse/client.h>
 
 using boost::asio::ip::tcp;
 using json = nlohmann::json;
-using namespace clickhouse;
 
 class LogSender {
 private:
@@ -63,9 +61,9 @@ public:
 class LogColector {
  private:
     std::vector<sensors::chip_name> bus;
-    // Все датчики в системе
+    uint64_t counter;
  public:
-    LogColector() {
+    LogColector() : counter(0) {
         bus = sensors::get_detected_chips();
     }
 
@@ -101,62 +99,37 @@ class LogColector {
                     temp_message["feature"] = temp[j].name();
                     temp_message["subfeature"] = temp_sub[k].name();
                     temp_message["value"] = temp_sub[k].read();
+                    temp_message["time"] = std::chrono::system_clock::now().time_since_epoch().count();
+                    temp_message["count"] = counter;
                     message.push_back(temp_message);
                 }
             }
         }
+        counter++;
         json result(message);
         return result;
     }
 };
 
-class LogWriter {
-private:
-    Client client;
-public:
-    LogWriter(const std::string& host) : client(ClientOptions().SetHost(host)) {
-        client.Execute("CREATE TABLE IF NOT EXISTS default.sensors ("
-            "id UInt64,"
-            "name String,"
-            "feature String,"
-            "subfeature String,"
-            "value Float64,"
-            "client_ip String"
-        ") ENGINE = Memory");
-        // client.Execute("CREATE TABLE IF NOT EXISTS sensors (name String, feature String, subfeatures String, value Float64) ENGINE = MergeTree() ORDER BY name");
-    }
 
-    void write(const json& msg) {
-        Block block;
-        auto name = std::make_shared<ColumnString>();
-        auto feature = std::make_shared<ColumnString>();
-        auto subfeatures = std::make_shared<ColumnString>();
-        auto value = std::make_shared<ColumnFloat64>();
-        auto client_ip = std::make_shared<ColumnString>();
+int main(int argc, char* argv[]) {
+    // g++ -o client component.cpp -lsensors-c++
+    // ./client localhost 9090
 
-        for (size_t i = 0; i < msg.size(); i++) {
-            name->Append(msg[i]["name"]);
-            feature->Append(msg[i]["feature"]);
-            subfeatures->Append(msg[i]["subfeature"]);
-            value->Append(msg[i]["value"]);
-            client_ip->Append("192.168.0.1");
-        }
-
-        block.AppendColumn("name", name);
-        block.AppendColumn("feature", feature);
-        block.AppendColumn("subfeature", subfeatures);
-        block.AppendColumn("value", value);
-        block.AppendColumn("client_ip", client_ip);
-
-        client.Insert("sensors", block);
-    }
-};
-
-int main() {
     LogColector a;
-    // LogSender sender("localhost", "9090");
-    // sender.write(a.get_bus().dump());
-    LogWriter writer("localhost");
-    writer.write(a.get_bus());
+
+    if (argc != 3) {
+        std::cerr << "Usage: client <host> <port>" << std::endl;
+        return 1;
+    }
+
+    LogSender sender(argv[1], argv[2]);
+
+    while (true) {
+        sender.write_async(a.get_bus().dump());
+        std::cout << "data send" << std::endl; 
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+    }
+
     return 0;
 }
